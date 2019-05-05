@@ -1,0 +1,51 @@
+body {
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main__title {
+    margin: 0;
+}
+
+.main__game {
+    flex-grow: 1;
+    margin-top: 15px;
+}
+
+.card__list {
+    display: relative;
+    display: grid;
+    grid-template-columns:repeat(auto-fill, 160px);
+    grid-gap: 15px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.game__card {
+    width: 160px;
+    height: 195px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    border: 2px solid purple;
+    border-radius: 10px;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.flip__card {
+    position: absolute;
+    width: 160px;
+    height: 195px;
+    background-color: purple;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.hidden {
+    visibility: hidden;
+}
