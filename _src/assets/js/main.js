@@ -15,22 +15,24 @@ const randomNumber = () => {
 const chooseDifficulty = event => {
   const trigger = event.target;
   if (trigger.value === undefined) {
-    difficulty = trigger.getAttribute ('name');
+    difficulty = parseInt (trigger.getAttribute ('name'));
   } else {
-    difficulty = parseInt(trigger.value);
+    difficulty = parseInt (trigger.value);
   }
 };
 
 const flipCard = event => {
   const toFlip = event.currentTarget;
+  const containerFlip = toFlip.parentElement;
   toFlip.classList.add ('hidden');
+  const id = parseInt(containerFlip.getAttribute('id'));
 };
 
-const createElement = array => {
-  for (const item of array) {
+const createElement = (array, max) => {
+  for (let i = 0; i < max; i++) {
     const cardHidden = document.createElement ('li');
     cardHidden.setAttribute ('class', 'game__item');
-    cardHidden.setAttribute ('id', item.id);
+    cardHidden.setAttribute ('id', array[i].id);
 
     const cardBack = document.createElement ('div');
     cardBack.setAttribute ('class', 'flip__card');
@@ -38,7 +40,7 @@ const createElement = array => {
 
     const cardBackground = document.createElement ('div');
     cardBackground.setAttribute ('class', 'game__card');
-    cardBackground.style.backgroundImage = 'url(' + item.photo + ')';
+    cardBackground.style.backgroundImage = 'url(' + array[i].photo + ')';
 
     cardHidden.appendChild (cardBack);
     cardHidden.appendChild (cardBackground);
@@ -46,42 +48,41 @@ const createElement = array => {
   }
 };
 
-const fetchPokemon = () => {
-  for (let i = 0; i < difficulty; i++) {
-    if (gameCards.length < difficulty) {
-      const randomFetch = randomNumber ();
-      fetch (`${urlToFetch}${randomFetch}`)
-        .then (response => response.json ())
-        .then (data => {
-          
-          if (
-            data.sprites.front_default !== null &&
-            data.sprites.back_default !== null
-          ) {
-            gameCards.push ({
-              id: data.id,
-              name: data.name,
-              photo: data.sprites.front_default,
-            });
-
-            gameCards.push ({
-              id: data.id,
-              name: data.name,
-              photo: data.sprites.back_default,
-            });
-          }
+const fetchPokemon = randomNumber => {
+  fetch (`${urlToFetch}${randomNumber}`)
+    .then (response => response.json ())
+    .then (data => {
+      if (
+        data.sprites.front_default !== null &&
+        data.sprites.back_default !== null
+      ) {
+        gameCards.push ({
+          id: data.id,
+          name: data.name,
+          photo: data.sprites.front_default,
         });
-    }
-  }
+
+        gameCards.push ({
+          id: data.id,
+          name: data.name,
+          photo: data.sprites.back_default,
+        });
+      }
+    });
 };
 
 const startGame = () => {
-  cardList.innerHTML= '';
+  cardList.innerHTML = '';
   gameCards = [];
-  fetchPokemon ();
+  for (let i = 0; i < difficulty; i++) {
+    const randomFetch = randomNumber ();
+    fetchPokemon (randomFetch);
+  }
+
+  const max = difficulty;
   setTimeout (() => {
-    createElement (gameCards);
-  }, 2000);
+    createElement (gameCards, max);
+  }, 2500);
 };
 
 options.addEventListener ('click', chooseDifficulty);
