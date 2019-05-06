@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>¡Memoria con Pokemon!</title>
+        <link rel="icon" href="favicon.png" />
+        <link rel="stylesheet" href="assets/css/main.css">
+    </head>
+    
+    <body>
+        <div class="page">
+            <main class="page__main">
+                 <h1 class="main__title">Pon a prueba tu memoria</h1>
+
+                <div class="main__form">
+                    <label for="easy" name="4">
+                        <input id="easy" type="radio" value="4" name="difficult" checked>Fácil</label>
+                    <label for="medium" name="6">
+                        <input id="medium" type="radio" value="6" name="difficult">Media</label>
+                    <label for="hard" name="8">
+                        <input id="hard" type="radio" value="8" name="difficult">Difícil</label>
+                    <button class="button__input form" type="button">Comenzar</button>
+                </div>
+                <div class="main__feedback"></div>
+                <div class="main__game">
+                    <ul class="card__list"></ul>
+                </div>
+            </main>
+        </div>
+        <script src="../assets/js/main.js"></script>
+    </body>
+
+</html>
